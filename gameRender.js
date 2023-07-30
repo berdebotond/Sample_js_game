@@ -30,9 +30,12 @@ var renderPlayState = function() {
   if (player.isAttacking && player.attackImage) {
     var frameWidth = player.attackImage.width / player.numAttackFrames;
     ctx.drawImage(player.attackImage, frameWidth * player.attackFrameIndex, 0, frameWidth, player.attackImage.height, canvas.width / 2 - 72, canvas.height / 2 - 72, 144, 144);
-  } else if (player.image) {
+  } else if (player.isMoving && player.image) {
     var frameWidth = player.image.width / player.numFrames;
     ctx.drawImage(player.image, frameWidth * player.frameIndex, 0, frameWidth, player.image.height, canvas.width / 2 - 72, canvas.height / 2 - 72, 144, 144);
+  } else if (player.idleImage) {
+    var frameWidth = player.idleImage.width / player.numIdleFrames;
+    ctx.drawImage(player.idleImage, frameWidth * player.idleFrameIndex, 0, frameWidth, player.idleImage.height, canvas.width / 2 - 72, canvas.height / 2 - 72, 144, 144);
   } else {
     ctx.fillStyle = player.color;
     ctx.fillRect(canvas.width / 2, canvas.height / 2, 32, 32);

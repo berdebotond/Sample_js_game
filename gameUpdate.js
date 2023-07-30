@@ -2,15 +2,18 @@ var update = function (modifier) {
   // Player movement
   if (38 in keysDown) {
     player.y -= player.speed * modifier;
-  }
-  if (40 in keysDown) {
+    player.isMoving = true;
+  } else if (40 in keysDown) {
     player.y += player.speed * modifier;
-  }
-  if (37 in keysDown) {
+    player.isMoving = true;
+  } else if (37 in keysDown) { // Left arrow key
     player.x -= player.speed * modifier;
-  }
-  if (39 in keysDown) {
+    player.isMoving = true;
+    player.direction = 'left';
+  } else if (39 in keysDown) { // Right arrow key
     player.x += player.speed * modifier;
+    player.isMoving = true;
+    player.direction = 'right';
   }
 
   // Player attack
@@ -57,16 +60,28 @@ var update = function (modifier) {
   if (enemies.length === 0) {
     generateWave();
   }
+  if (player.health <= 0) {
+    gameState = "end";
+  }
+  if (enemies.length === 0) {
+    generateWave();
+  }
   if (player.isAttacking) {
     player.timeSinceLastFrame += modifier;
     if (player.timeSinceLastFrame > player.timePerFrame) {
       player.attackFrameIndex = (player.attackFrameIndex + 1) % player.numAttackFrames;
       player.timeSinceLastFrame = 0;
     }
-  } else {
+  } else if (player.isMoving) {
     player.timeSinceLastFrame += modifier;
     if (player.timeSinceLastFrame > player.timePerFrame) {
       player.frameIndex = (player.frameIndex + 1) % player.numFrames;
+      player.timeSinceLastFrame = 0;
+    }
+  } else {
+    player.timeSinceLastFrame += modifier;
+    if (player.timeSinceLastFrame > player.timePerFrame) {
+      player.idleFrameIndex = (player.idleFrameIndex + 1) % player.numIdleFrames;
       player.timeSinceLastFrame = 0;
     }
   }
