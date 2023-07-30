@@ -70,16 +70,4 @@ var drawBackground = function() {
       ctx.drawImage(bgImage, x, y);
     }
   }
-  var frameWidth = player.spriteSheet.width / player.numFrames;
-  ctx.drawImage(
-    player.spriteSheet, // Image
-    player.frameIndex * frameWidth, // Source x
-    0, // Source y
-    frameWidth, // Source width
-    player.spriteSheet.height, // Source height
-    player.x, // Destination x
-    player.y, // Destination y
-    frameWidth, // Destination width
-    player.spriteSheet.height // Destination height
-  );
 };
