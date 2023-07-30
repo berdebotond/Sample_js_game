@@ -27,8 +27,12 @@ var renderPlayState = function() {
   if (bgReady) {
     drawBackground();
   }
-  if (player.image) {
-    ctx.drawImage(player.image, canvas.width / 2, canvas.height / 2, 72, 72);
+  if (player.isAttacking && player.attackImage) {
+    var frameWidth = player.attackImage.width / player.numAttackFrames;
+    ctx.drawImage(player.attackImage, frameWidth * player.attackFrameIndex, 0, frameWidth, player.attackImage.height, canvas.width / 2 - 72, canvas.height / 2 - 72, 144, 144);
+  } else if (player.image) {
+    var frameWidth = player.image.width / player.numFrames;
+    ctx.drawImage(player.image, frameWidth * player.frameIndex, 0, frameWidth, player.image.height, canvas.width / 2 - 72, canvas.height / 2 - 72, 144, 144);
   } else {
     ctx.fillStyle = player.color;
     ctx.fillRect(canvas.width / 2, canvas.height / 2, 32, 32);

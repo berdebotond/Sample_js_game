@@ -21,6 +21,7 @@ var update = function (modifier) {
     player.color = 'rgb(0, 0, 0)';
     player.isAttacking = false;
   }
+  
 
   // Enemy interaction
   enemies.forEach(function(enemy, i) {
@@ -56,10 +57,21 @@ var update = function (modifier) {
   if (enemies.length === 0) {
     generateWave();
   }
-  player.timeSinceLastFrame += modifier;
-  if (player.timeSinceLastFrame > player.timePerFrame) {
-    player.frameIndex = (player.frameIndex + 1) % player.numFrames;
-    player.timeSinceLastFrame = 0;
+  if (player.isAttacking) {
+    player.timeSinceLastFrame += modifier;
+    if (player.timeSinceLastFrame > player.timePerFrame) {
+      player.attackFrameIndex = (player.attackFrameIndex + 1) % player.numAttackFrames;
+      player.timeSinceLastFrame = 0;
+    }
+  } else {
+    player.timeSinceLastFrame += modifier;
+    if (player.timeSinceLastFrame > player.timePerFrame) {
+      player.frameIndex = (player.frameIndex + 1) % player.numFrames;
+      player.timeSinceLastFrame = 0;
+    }
   }
+
+  console.log('frameIndex:', player.frameIndex);
+  console.log('timeSinceLastFrame:', player.timeSinceLastFrame);
 };
 
