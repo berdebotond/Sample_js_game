@@ -1,4 +1,4 @@
-var player = {
+player = {
   speed: 256, // Player speed
   x: 0,
   y: 0,
@@ -6,11 +6,12 @@ var player = {
   isAttacking: false,
   health: 100,
   attack: 10, // Player attack
-  range: 50 // Player range
-};
+  range: 50, // Player range
+  spriteSheet: new Image(),
+  frameIndex: 0,
+  numFrames: 4,
+  timePerFrame: 100,
+  timeSinceLastFrame: 0
+}
 
-var playerImage = new Image();
-playerImage.onload = function () {
-  player.image = playerImage;
-};
-playerImage.src = 'player.png'; 
+player.spriteSheet.src = 'player_spritesheet.png';

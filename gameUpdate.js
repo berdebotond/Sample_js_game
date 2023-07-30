@@ -56,4 +56,10 @@ var update = function (modifier) {
   if (enemies.length === 0) {
     generateWave();
   }
+  player.timeSinceLastFrame += modifier;
+  if (player.timeSinceLastFrame > player.timePerFrame) {
+    player.frameIndex = (player.frameIndex + 1) % player.numFrames;
+    player.timeSinceLastFrame = 0;
+  }
 };
+
