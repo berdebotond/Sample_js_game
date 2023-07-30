@@ -1,9 +1,9 @@
 var update = function (modifier) {
   // Player movement
-  if (38 in keysDown) {
+  if (38 in keysDown) { // Up arrow key
     player.y -= player.speed * modifier;
     player.isMoving = true;
-  } else if (40 in keysDown) {
+  } else if (40 in keysDown) { // Down arrow key
     player.y += player.speed * modifier;
     player.isMoving = true;
   } else if (37 in keysDown) { // Left arrow key
@@ -14,6 +14,8 @@ var update = function (modifier) {
     player.x += player.speed * modifier;
     player.isMoving = true;
     player.direction = 'right';
+  } else {
+    player.isMoving = false;
   }
 
   // Player attack
@@ -28,10 +30,11 @@ var update = function (modifier) {
 
   // Enemy interaction
   enemies.forEach(function(enemy, i) {
-    var dx = player.x - enemy.x;
-    var dy = player.y - enemy.y;
+    var dx = player.x - (enemy.x + 16); // Adjust for the increased enemy size
+    var dy = player.y - (enemy.y + 16); // Adjust for the increased enemy size
     var distance = Math.sqrt(dx * dx + dy * dy);
-
+  
+    // Rest of the code...
     // Player attack on enemy
     if (distance < player.range && player.isAttacking) {
       enemy.health -= player.attack;

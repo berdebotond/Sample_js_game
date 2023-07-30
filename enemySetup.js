@@ -2,6 +2,16 @@ var enemies = [];
 var hitCount = 0;
 var waveCount = 1;
 
+
+var enemyImage = new Image();
+enemyImage.onload = function () {
+  enemies.forEach(function(enemy) {
+    enemy.image = enemyImage;
+  });
+};
+enemyImage.src = 'enemy.gif';
+
+
 var generateWave = function() {
   for (var i = 0; i < waveCount; i++) {
     var enemy = {
@@ -12,7 +22,8 @@ var generateWave = function() {
       lastAttack: Date.now(),
       health: Math.random() > 0.5 ? 2 : 1,
       attack: 5, // Enemy attack
-      range: 30 // Enemy range
+      range: 30, // Enemy range
+      image: enemyImage // Assign the image to each enemy as it's created
     };
     enemies.push(enemy);
   }
