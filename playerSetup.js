@@ -25,16 +25,16 @@ var playerImage = new Image();
 playerImage.onload = function () {
   player.image = playerImage;
 };
-playerImage.src = 'noBKG_KnightRun_strip.png'; // Use sprite sheet instead of single image
+playerImage.src = 'assets/noBKG_KnightRun_strip.png'; // Use sprite sheet instead of single image
 
 var attackImage = new Image();
 attackImage.onload = function () {
   player.attackImage = attackImage;
 };
-attackImage.src = 'noBKG_KnightAttack_strip.png';
+attackImage.src = 'assets/noBKG_KnightAttack_strip.png';
 
 var idleImage = new Image();
 idleImage.onload = function () {
   player.idleImage = idleImage;
 };
-idleImage.src = 'noBKG_KnightIdle_strip.png'; // Use idle sprite sheet for idle animation
+idleImage.src = 'assets/noBKG_KnightIdle_strip.png'; // Use idle sprite sheet for idle animation

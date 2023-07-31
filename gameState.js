@@ -1,8 +1,8 @@
-var gameState = "start"; // Possible values: "start", "play", "end"
+var gameState = "start";
 
 var bgReady = false;
 var bgImage = new Image();
 bgImage.onload = function () {
   bgReady = true;
 };
-bgImage.src = 'background.jpg';
+bgImage.src = 'assets/background.jpg';

@@ -9,7 +9,7 @@ enemyImage.onload = function () {
     enemy.image = enemyImage;
   });
 };
-enemyImage.src = 'enemy.gif';
+enemyImage.src = 'assets/enemy.gif';
 
 
 var generateWave = function() {
