@@ -11,23 +11,36 @@ enemyImage.onload = function () {
 };
 enemyImage.src = 'assets/enemy.gif';
 
+var goblinImage = new Image();
+goblinImage.onload = function () {
+  // You can assign the image to the goblin enemies when they are created
+};
+goblinImage.src = 'assets/goblin.png';
+
 
 var generateWave = function() {
   for (var i = 0; i < waveCount; i++) {
+    var enemyType = Math.random() > 0.5 ? 'normal' : 'goblin';
     var enemy = {
-      speed: 100, // Enemy speed
+      type: enemyType,
+      speed: enemyType === 'goblin' ? 120 : 100, // Goblin enemies are faster
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       direction: Math.random() > 0.5 ? 1 : -1,
       lastAttack: Date.now(),
-      health: Math.random() > 0.5 ? 2 : 1,
-      attack: 5, // Enemy attack
-      range: 30, // Enemy range
-      image: enemyImage // Assign the image to each enemy as it's created
+      health: enemyType === 'goblin' ? 3 : Math.random() > 0.5 ? 2 : 1, // Goblin enemies have more health
+      attack: enemyType === 'goblin' ? 7 : 5, // Goblin enemies have stronger attacks
+      range: enemyType === 'goblin' ? 40 : 30, // Goblin enemies have a larger range
+      image: enemyType === 'goblin' ? goblinImage : enemyImage, // Assign the correct image
+      frameIndex: 0,
+      numFrames: enemyType === 'goblin' ? 12 : 1 // Assuming the goblin image has 12 frames and the normal enemy image has 1 frame
     };
     enemies.push(enemy);
   }
   waveCount++;
 };
 
+
+
 generateWave();
+

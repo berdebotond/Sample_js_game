@@ -7,13 +7,18 @@ var update = function (modifier) {
     player.y += player.speed * modifier;
     player.isMoving = true;
   } else if (37 in keysDown) { // Left arrow key
-    player.x -= player.speed * modifier;
-    player.isMoving = true;
-    player.direction = 'left';
+    if (gameState.state == 'play') {
+      player.x -= player.speed * modifier;
+      player.isMoving = true;
+      player.direction = 'left'; 
+    }
   } else if (39 in keysDown) { // Right arrow key
-    player.x += player.speed * modifier;
-    player.isMoving = true;
-    player.direction = 'right';
+    if (gameState.state == 'play') {
+
+      player.x += player.speed * modifier;
+      player.isMoving = true;
+      player.direction = 'right';
+    }
   } else {
     player.isMoving = false;
   }
@@ -58,13 +63,13 @@ var update = function (modifier) {
 
   // Game state updates
   if (player.health <= 0) {
-    gameState = "end";
+    gameState.state = "end";
   }
   if (enemies.length === 0) {
     generateWave();
   }
   if (player.health <= 0) {
-    gameState = "end";
+    gameState.state = "end";
   }
   if (enemies.length === 0) {
     generateWave();
@@ -88,8 +93,5 @@ var update = function (modifier) {
       player.timeSinceLastFrame = 0;
     }
   }
-
-  console.log('frameIndex:', player.frameIndex);
-  console.log('timeSinceLastFrame:', player.timeSinceLastFrame);
 };
 
