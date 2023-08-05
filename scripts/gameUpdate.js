@@ -1,18 +1,18 @@
 var update = function (modifier) {
   // Player movement
-  if (38 in keysDown) { // Up arrow key
+  if (38 in keysDown && !player.isAttacking) { // Up arrow key
     player.y -= player.speed * modifier;
     player.isMoving = true;
-  } else if (40 in keysDown) { // Down arrow key
+  } else if (40 in keysDown && !player.isAttacking) { // Down arrow key
     player.y += player.speed * modifier;
     player.isMoving = true;
-  } else if (37 in keysDown) { // Left arrow key
+  } else if (37 in keysDown && !player.isAttacking) { // Left arrow key
     if (gameState.state == 'play') {
       player.x -= player.speed * modifier;
       player.isMoving = true;
       player.direction = 'left'; 
     }
-  } else if (39 in keysDown) { // Right arrow key
+  } else if (39 in keysDown && !player.isAttacking) { // Right arrow key
     if (gameState.state == 'play') {
 
       player.x += player.speed * modifier;

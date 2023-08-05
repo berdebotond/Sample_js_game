@@ -38,3 +38,4 @@ idleImage.onload = function () {
   player.idleImage = idleImage;
 };
 idleImage.src = 'assets/noBKG_KnightIdle_strip.png'; // Use idle sprite sheet for idle animation
+

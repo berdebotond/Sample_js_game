@@ -2,6 +2,9 @@ var gameState = {
   state: 'start',
   map: 'map1',
   // ...other properties...
+  EnemyRules: {
+    // ...enemy rules...
+  },
 };
 
 // ...

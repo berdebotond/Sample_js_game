@@ -80,15 +80,21 @@ var renderPlayState = function() {
   ctx.restore();
 
   enemies.forEach(function(enemy) {
-    if (enemy.image) {
-      var frameWidth = enemy.image.width / enemy.numFrames;
+    if (enemy.name === 'normal') {
+      // If it's a normal enemy (GIF), just draw the image
+      ctx.drawImage(enemy.image, enemy.x - player.x + canvas.width / 2, enemy.y - player.y + canvas.height / 2, 134, 132);
+    } else if (enemy.name === 'goblin') {
+      // If it's a goblin enemy, use the frames
+      var frameWidth = enemy.image.width / 12; // 12 frames for the goblin
       ctx.drawImage(enemy.image, frameWidth * enemy.frameIndex, 0, frameWidth, enemy.image.height, enemy.x - player.x + canvas.width / 2, enemy.y - player.y + canvas.height / 2, 134, 132);
-      enemy.frameIndex = (enemy.frameIndex + 1) % enemy.numFrames;
+      enemy.frameIndex = (enemy.frameIndex + 1) % enemy.numFrames; // Cycle through 12 frames
     } else {
+      // Fallback for any other enemy types
       ctx.fillStyle = 'rgb(255, 0, 0)';
       ctx.fillRect(enemy.x - player.x + canvas.width / 2, enemy.y - player.y + canvas.height / 2, 64, 64); // Increased size to 64x64
     }
   });
+  
   
   
   

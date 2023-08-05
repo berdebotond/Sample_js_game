@@ -1,46 +1,68 @@
-var enemies = [];
-var hitCount = 0;
-var waveCount = 1;
-
-
-var enemyImage = new Image();
-enemyImage.onload = function () {
-  enemies.forEach(function(enemy) {
-    enemy.image = enemyImage;
-  });
-};
-enemyImage.src = 'assets/enemy.gif';
-
-var goblinImage = new Image();
+let goblinImage = new Image();
 goblinImage.onload = function () {
-  // You can assign the image to the goblin enemies when they are created
-};
+  };
 goblinImage.src = 'assets/goblin.png';
 
+let goblin = new Enemy({
+  name: 'goblin',
+  speed: 120,
+  health: 3,
+  damage: 7,
+  frameIndex: 0,
+  numFrames: 8,
+  image: goblinImage,
+  range: 40,
+  isAttacking: false,
+  image_path: 'assets/goblin.png'
+});
 
-var generateWave = function() {
-  for (var i = 0; i < waveCount; i++) {
-    var enemyType = Math.random() > 0.5 ? 'normal' : 'goblin';
-    var enemy = {
-      type: enemyType,
-      speed: enemyType === 'goblin' ? 120 : 100, // Goblin enemies are faster
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
+
+let normalEnemyImage = new Image();
+normalEnemyImage.onload = function () {
+  enemies.forEach(function(enemy) {
+    enemy.image = normalEnemyImage;
+  });
+};
+normalEnemyImage.src = 'assets/enemy.gif';
+
+let normalEnemy = new Enemy({
+  name: 'normal',
+  speed: 120,
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  health: 3,
+  damage: 7,
+  frameIndex: 0,
+  numFrames: 8,
+  image: normalEnemyImage,
+  range: 40,
+  hitCount: 0,
+  isAttacking: false,
+  image_path: 'assets/enemy.gif'
+});
+
+let enemies = [];
+let hitCount = 0;
+let waveCount = 1;
+
+// Generate a new wave every 5000 milliseconds (5 seconds)
+let generateWaveInterval = 60*100; // Adjust this value to change the wave generation interval
+
+let generateWave = function() {
+  let spawnRadius = 300; // Adjust this value to change the spawn radius around the player
+  for (let i = 0; i < waveCount; i++) {
+    let enemyType = Math.random() > 0.5 ? 'normal' : 'goblin';
+    let enemyTemplate = enemyType === 'normal' ? normalEnemy : goblin;
+    let spawnAngle = Math.random() * 2 * Math.PI; // Random angle for enemy spawn
+    let enemy = Object.assign({}, enemyTemplate, {
+      x: player.x + spawnRadius * Math.cos(spawnAngle), // Spawn enemy within the spawn radius around the player
+      y: player.y + spawnRadius * Math.sin(spawnAngle), // Spawn enemy within the spawn radius around the player
       direction: Math.random() > 0.5 ? 1 : -1,
-      lastAttack: Date.now(),
-      health: enemyType === 'goblin' ? 3 : Math.random() > 0.5 ? 2 : 1, // Goblin enemies have more health
-      attack: enemyType === 'goblin' ? 7 : 5, // Goblin enemies have stronger attacks
-      range: enemyType === 'goblin' ? 40 : 30, // Goblin enemies have a larger range
-      image: enemyType === 'goblin' ? goblinImage : enemyImage, // Assign the correct image
-      frameIndex: 0,
-      numFrames: enemyType === 'goblin' ? 12 : 1 // Assuming the goblin image has 12 frames and the normal enemy image has 1 frame
-    };
+      lastAttack: Date.now()
+    });
     enemies.push(enemy);
   }
   waveCount++;
 };
 
-
-
-generateWave();
-
+setInterval(generateWave, generateWaveInterval);
